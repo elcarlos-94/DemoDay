@@ -1,0 +1,21 @@
+[{$unwind: {
+ path: '$genres'
+}}, {$unwind: {
+ path: '$countries'
+}}, {$group: {
+ _id: {
+  country: '$countries',
+  genre: '$genres'
+ },
+ tot: {
+  $sum: 1
+ }
+}}, {$addFields: {
+ Pais: '$_id.country',
+ Genero: '$_id.genre'
+}}, {$project: {
+ _id: 0,
+ Pais: 1,
+ Genero: 1,
+ tot: 1
+}}]

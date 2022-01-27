@@ -1,0 +1,4 @@
+{ number_of_reviews: {$gte: 50},  
+"review_scores.review_scores_rating": 
+{$gte: 80}, "address.country_code": "BR", 
+amenities: {$in: [/Ethernet/]}}
