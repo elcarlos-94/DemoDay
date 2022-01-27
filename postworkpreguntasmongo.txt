@@ -34,7 +34,7 @@ Preguntas sesion 1:
  avg_score: -1
 }}, {$limit: 20}]
 
-3. Juegos que tienen una calificación de 90 o mayor (criticas).
+3. Juegos que tienen una calificación de 95 o mayor (criticas).
 
 [{$project: {
  name: 1,
@@ -215,7 +215,7 @@ Preguntas sesion 3:
  developer: 1
 }}]
 
-12. Top 20 de los desarrolladores con más juegos en la lista.
+12. Top de los desarrolladores con más juegos en la lista.
 
 [{$group: {
  _id: '$developer',
@@ -243,7 +243,6 @@ Preguntas sesion 3:
  users: -1
 }}, {$limit: 20}, {$project: {
  _id: 0,
- name: 1,
  developer: 1,
  users: 1
 }}]
