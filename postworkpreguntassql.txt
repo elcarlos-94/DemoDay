@@ -1,0 +1,24 @@
+Preguntas sesion 1:
+
+1. Top 20 de juegos mejor calificados según la crítica.
+2. Top 20 de juegos mejor calificados según los usuarios.
+3. Juegos que tienen una calificación de 90 o mayor (criticas).
+4. Juegos que tienen una calificación de 9 o mayor (usuarios).
+5. Top 20 de juegos que tienen mayor cantidad de críticas.
+
+Preguntas sesion 2:
+
+6. Cantidad de juegos dependiendo del género que son.
+7. Calificación (critica) promedio de todos los juegos.
+8. Calificación (usuarios) promedio de todos los juegos.
+9. Juegos que están arriba del promedio de la calificación de crítica.
+10. Cantidad de juegos que están arriba del promedio según su género.
+
+Preguntas sesion 3:
+
+11. Top 20 con el nombre de juego y desarrollador.
+12. Top 20 de los desarrolladores con más juegos en la lista.
+13. Cantidad de juegos en la lista según su consola.
+14. Los 20 juegos con mayor cantidad de criticas por los usuarios con su respectivo desarrollador.
+15. Numero de criticas de usuarios por consola.
+16. Cantidad de criticas de usuarios por compañía.

@@ -1,0 +1,294 @@
+Preguntas sesion 1:
+
+1. Top 20 de juegos mejor calificados según la crítica.
+
+[{$project: {
+ name: 1,
+ score: 1,
+ _id: 0
+}}, {$group: {
+ _id: '$name',
+ avg_score: {
+  $avg: '$score'
+ }
+}}, {$sort: {
+ avg_score: -1
+}}, {$limit: 20}]
+
+2. Top 20 de juegos mejor calificados según los usuarios.
+
+[{$project: {
+ name: 1,
+ user_score: 1,
+ _id: 0
+}}, {$match: {
+ user_score: {
+  $exists: true
+ }
+}}, {$group: {
+ _id: '$name',
+ avg_score: {
+  $avg: '$user_score'
+ }
+}}, {$sort: {
+ avg_score: -1
+}}, {$limit: 20}]
+
+3. Juegos que tienen una calificación de 90 o mayor (criticas).
+
+[{$project: {
+ name: 1,
+ score: 1,
+ _id: 0
+}}, {$group: {
+ _id: '$name',
+ avg_score: {
+  $avg: '$score'
+ }
+}}, {$match: {
+ avg_score: {
+  $gte: 95
+ }
+}}]
+
+4. Juegos que tienen una calificación de 9 o mayor (usuarios).
+
+[{$project: {
+ name: 1,
+ user_score: 1,
+ _id: 0
+}}, {$match: {
+ user_score: {
+  $exists: true
+ }
+}}, {$group: {
+ _id: '$name',
+ avg_score: {
+  $avg: '$user_score'
+ }
+}}, {$match: {
+ avg_score: {
+  $gte: 9
+ }
+}}]
+
+5. Top 20 de juegos que tienen mayor cantidad de críticas.
+
+[{$project: {
+ name: 1,
+ critics: 1,
+ _id: 0
+}}, {$match: {
+ critics: {
+  $exists: true
+ }
+}}, {$group: {
+ _id: '$name',
+ total_critics: {
+  $sum: '$critics'
+ }
+}}, {$sort: {
+ total_critics: -1
+}}, {$limit: 20}]
+
+Preguntas sesion 2:
+
+6. Cantidad de juegos dependiendo del género que son.
+
+[{$group: {
+ _id: '$genre',
+ genre: {
+  $sum: 1
+ }
+}}, {$sort: {
+ genre: -1
+}}]
+
+7. Cantidad de usuarios que criticaron un juego según su género.
+
+[{$project: {
+ genre: 1,
+ users: 1,
+ _id: 0
+}}, {$match: {
+ users: {
+  $exists: true
+ }
+}}, {$group: {
+ _id: '$genre',
+ total_users: {
+  $sum: '$users'
+ }
+}}, {$sort: {
+ total_users: -1
+}}]
+
+8. Calificación (critica) promedio de todos los juegos.
+
+[{$project: {
+ _id: 0,
+ score: 1
+}}, {$group: {
+ _id: null,
+ avg_score: {
+  $avg: '$score'
+ }
+}}]
+
+9. Juegos que están arriba del promedio de la calificación de crítica.
+
+[{$addFields: {
+ avg_code: 1
+}}, {$lookup: {
+ from: 'q88',
+ localField: 'avg_code',
+ foreignField: 'avg_code',
+ as: 'avg_score'
+}}, {$addFields: {
+ avg_object: {
+  $arrayElemAt: [
+   '$avg_score',
+   0
+  ]
+ }
+}}, {$addFields: {
+ avg_number: '$avg_object.avg_score'
+}}, {$project: {
+ name: 1,
+ score: 1,
+ avg_number: 1,
+ _id: 0
+}}, {$match: {
+ score: {
+  $gte: 70.38664734730287
+ }
+}}, {$group: {
+ _id: '$name',
+ avg_score_game: {
+  $avg: '$score'
+ }
+}}]
+
+ALTERNATIVO:
+
+[{$group: {
+ _id: '$name',
+ avg_score: {
+  $avg: '$score'
+ }
+}}, {$sort: {
+ avg_score: -1
+}}, {$match: {
+ avg_score: {
+  $gte: 70.38664734730287
+ }
+}}]
+
+10. Cantidad de juegos que están arriba del promedio según su género.
+
+[{$project: {
+ genre: 1,
+ score: 1,
+ _id: 0
+}}, {$match: {
+ score: {
+  $gte: 70.38664734730287
+ }
+}}, {$group: {
+ _id: '$genre',
+ number_games: {
+  $sum: 1
+ }
+}}, {$sort: {
+ number_games: -1
+}}]
+
+Preguntas sesion 3:
+
+11. Top 20 con el nombre de juego y desarrollador.
+
+[{$sort: {
+ score: -1
+}}, {$limit: 20}, {$project: {
+ _id: 0,
+ name: 1,
+ developer: 1
+}}]
+
+12. Top 20 de los desarrolladores con más juegos en la lista.
+
+[{$group: {
+ _id: '$developer',
+ num_games: {
+  $sum: 1
+ }
+}}, {$sort: {
+ num_games: -1
+}}, {$limit: 20}]
+
+13. Cantidad de juegos en la lista según su consola.
+
+[{$group: {
+ _id: '$platform',
+ num_games: {
+  $sum: 1
+ }
+}}, {$sort: {
+ num_games: -1
+}}]
+
+14. Los 20 juegos con mayor cantidad de criticas por los usuarios con su respectivo desarrollador.
+
+[{$sort: {
+ users: -1
+}}, {$limit: 20}, {$project: {
+ _id: 0,
+ name: 1,
+ developer: 1,
+ users: 1
+}}]
+
+15. Numero de criticas de usuarios por consola.
+
+[{$project: {
+ platform: 1,
+ users: 1,
+ _id: 0
+}}, {$group: {
+ _id: '$platform',
+ total_users: {
+  $sum: '$users'
+ }
+}}, {$sort: {
+ total_users: -1
+}}]
+
+16. Cantidad de criticas de usuarios por compañía.
+
+
+[{$lookup: {
+ from: 'platforms',
+ localField: 'platform',
+ foreignField: 'platform',
+ as: 'consolesandcompanies'
+}}, {$addFields: {
+ consolesandcompanies_object: {
+  $arrayElemAt: [
+   '$consolesandcompanies',
+   0
+  ]
+ }
+}}, {$addFields: {
+ company: '$consolesandcompanies_object.company'
+}}, {$match: {
+ company: {
+  $exists: true
+ }
+}}, {$group: {
+ _id: '$company',
+ total_users: {
+  $sum: '$users'
+ }
+}}, {$sort: {
+ total_users: -1
+}}]
