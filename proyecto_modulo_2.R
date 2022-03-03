@@ -3,6 +3,7 @@
 
 library("dplyr")
 library("lubridate")
+library("ggplot2")
 
 getwd()
 setwd("C:/Users/Carlos Alvarez/Desktop/DemoDay")
@@ -49,7 +50,9 @@ ggplot(game_data_modified, aes(Number_of_critics,Critics_score)) +
   xlab("Number of critics") +
   ylab("Score")
   
-ggplot(game_data_modified, aes(Number_of_users,Users_Score)) +
+
+game_data_filtered <- filter(game_data_modified, Name != "The Last of Us Part II")
+ggplot(game_data_filtered, aes(Number_of_critics,Users_Score)) +
   geom_point() +
   facet_wrap("Company") +
   ggtitle("Users Score by company") +
