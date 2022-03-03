@@ -1,9 +1,11 @@
 # Proyecto. Módulo 2.
 # Autor: Carlos Alberto Álvarez Velasco.
 
+install.packages("tidyverse")
 library("dplyr")
 library("lubridate")
 library("ggplot2")
+library("tidyverse")
 
 getwd()
 setwd("C:/Users/Carlos Alvarez/Desktop/DemoDay")
@@ -46,7 +48,7 @@ ggplot(game_data_modified, aes(Users_Score)) +
 ggplot(game_data_modified, aes(Number_of_critics,Critics_score)) +
   geom_point() +
   facet_wrap("Company") +
-  ggtitle("Users Score by company") +
+  ggtitle("Critics Score by company") +
   xlab("Number of critics") +
   ylab("Score")
   
@@ -58,3 +60,21 @@ ggplot(game_data_filtered, aes(Number_of_critics,Users_Score)) +
   ggtitle("Users Score by company") +
   xlab("Number of users") +
   ylab("Score")
+
+# Extraemos el año de lanzamiento de cada juego.
+game_data_modified$Year <- format(game_data_modified$Release_Date, format = "%Y")
+
+# Graficamos la calidad de los juegos año tras año según la crítica.
+year_mean <- game_data_modified %>% group_by(Year) %>% summarise(Mean = mean(Critics_score), n = n())
+year_mean_filtered <- filter(year_mean, n > 52)
+plot(year_mean_filtered$Year, year_mean_filtered$Mean, xlab = "Year", ylab = "Critics Score")
+
+# Graficamos la calidad de los juegos año tras año según los jugadores.
+game_data_users_filtered <- filter(game_data_modified, Number_of_users > 100)
+year_mean_users <- game_data_users_filtered %>% group_by(Year) %>% summarise(Mean = mean(Users_Score), n = n())
+plot(year_mean_users$Year, year_mean_users$Mean, 
+     xlab = "Year", ylab = "User Score")
+
+# Graficamos la popularidad de los videojuegos a través de los años.
+plot(year_mean_users$Year, year_mean_users$n,
+     xlab = "Year", ylab = "Number of players")
