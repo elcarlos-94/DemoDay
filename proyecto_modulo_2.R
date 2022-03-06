@@ -1,11 +1,13 @@
 # Proyecto. Módulo 2.
 # Autor: Carlos Alberto Álvarez Velasco.
 
-install.packages("tidyverse")
+# install.packages("tidyverse")
+
 library("dplyr")
 library("lubridate")
 library("ggplot2")
 library("tidyverse")
+
 
 getwd()
 setwd("C:/Users/Carlos Alvarez/Desktop/DemoDay")
@@ -26,8 +28,8 @@ game_data_modified <- game_data_modified %>% mutate(Users_Score = as.numeric(Use
 game_data_modified <- game_data_modified[,-c(5)] # Se elimina la columna original.
 
 str(game_data_modified)
-developer_mean <- game_data_modified %>% group_by(Developer) %>% summarise(Mean = mean(Critics_score), n = n())
-company_mean <- game_data_modified %>% group_by(Company) %>% summarise(Mean = mean(Critics_score), n = n())
+#developer_mean <- game_data_modified %>% group_by(Developer) %>% summarise(Mean = mean(Critics_score), n = n())
+#company_mean <- game_data_modified %>% group_by(Company) %>% summarise(Mean = mean(Critics_score), n = n())
 
 # Histogramas que muestran el promedio de calificación de la critica y los usuarios.
 
@@ -38,12 +40,44 @@ ggplot(game_data_modified, aes(Critics_score)) +
   ylab("Times") +
   geom_vline(xintercept = mean(game_data_modified$Critics_score))
 
+
+#Normalizamos la serie de datos
+
+group_critics_score <- game_data_modified %>% select(Critics_score)
+group_critics_score <- group_critics_score %>% mutate(Game_factor = ifelse(Critics_score >= 60, 1, 0)) # 1 es bueno, 0 es malo.
+
+#m_log_critics <- glm(group_critics_score$Game_factor ~ group_critics_score$Critics_score, data = group_critics_score, family = "binomial")
+
+ggplot(data = group_critics_score, aes(x = Critics_score, y = Game_factor)) +
+  geom_point(aes(color = as.factor(Game_factor)), shape = 1) +
+  geom_smooth(method = "glm",
+              method.args = list(family = "binomial"),
+              color = "gray20",
+              se = FALSE)
+
+str(m_log_critics)
+str(group_critics_score)
+
+ggplot(game_data_modified, aes(log(Critics_score))) +
+  geom_histogram(col = "black", fill= "red") +
+  ggtitle("Critics score by console") +
+  xlab("Score") +
+  ylab("Times")
+
 ggplot(game_data_modified, aes(Users_Score)) +
   geom_histogram(col = "black", fill= "red") +
   ggtitle("Users score by console") +
   xlab("Score") +
   ylab("Times") +
   geom_vline(xintercept = mean(na.omit(game_data_modified$Users_Score)))
+
+
+#Normalizamos la serie de datos
+ggplot(game_data_modified, aes((log(Users_Score)))) +
+  geom_histogram(col = "black", fill= "red") +
+  ggtitle("Users score by console") +
+  xlab("Score") +
+  ylab("Times")
 
 ggplot(game_data_modified, aes(Number_of_critics,Critics_score)) +
   geom_point() +
