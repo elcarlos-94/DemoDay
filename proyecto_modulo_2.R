@@ -46,9 +46,14 @@ ggplot(game_data_modified, aes(Critics_score)) +
 ggplot(game_data_modified, aes((Critics_score)^2)) +
   geom_histogram(col = "black", fill= "red") +
   ggtitle("Critics score by console") +
-  xlab("Score") +
+  xlab("Score^2") +
   ylab("Times") +
   geom_vline(xintercept = (mean(game_data_modified$Critics_score))^2)
+
+sd_critics <- sd((game_data_modified$Critics_score)^2)
+mean_critics <- (mean(game_data_modified$Critics_score))^2
+prob_critics <- pnorm(q = (60)^2, mean = mean_critics, sd = sd_critics)
+prob_critics <- pnorm(q = (80)^2, mean = mean_critics, sd = sd_critics)
 
 group_critics_score <- game_data_modified %>% select(Critics_score)
 group_critics_score <- group_critics_score %>% mutate(Game_factor = ifelse(Critics_score >= 60, 1, 0)) # 1 es bueno, 0 es malo.
@@ -80,16 +85,14 @@ ggplot(game_data_modified, aes(Users_Score)) +
 ggplot(game_data_modified, aes((Users_Score)^2)) +
   geom_histogram(col = "black", fill= "red") +
   ggtitle("Users score by console") +
-  xlab("Score") +
+  xlab("Score^2") +
   ylab("Times") +
   geom_vline(xintercept = (mean(na.omit(game_data_modified$Users_Score))^2))
 
-ggplot(game_data_modified, aes(Number_of_critics,Critics_score)) +
-  geom_point() +
-  facet_wrap("Company") +
-  ggtitle("Critics Score by company") +
-  xlab("Number of critics") +
-  ylab("Score")
+sd_users <- sd(na.omit(game_data_modified$Users_Score)^2)
+mean_users <- (mean(na.omit(game_data_modified$Users_Score))^2)
+prob_users <- pnorm(q = (6.0)^2, mean = mean_users, sd = sd_users)
+prob_users <- pnorm(q = (8.0)^2, mean = mean_users, sd = sd_users)
 
 # Análisis cualitativo de relación entre el número de usuarios y el puntaje por la compañía.
 
