@@ -54,9 +54,9 @@ mean_critics <- (mean(game_data_modified$Critics_score))^2
 
 # Consideramos tres casos donde un juego es bueno a partir de la calificación de usuarios, desde 60, 70 y 80.
 
-(prob_critics <- 1 - pnorm(q = (60)^2, mean = mean_critics, sd = sd_critics))
-(prob_critics <- 1 - pnorm(q = (70)^2, mean = mean_critics, sd = sd_critics))
-(prob_critics <- 1 - pnorm(q = (80)^2, mean = mean_critics, sd = sd_critics))
+(prob_critics_60 <- 1 - pnorm(q = (60)^2, mean = mean_critics, sd = sd_critics))
+(prob_critics_70 <- 1 - pnorm(q = (70)^2, mean = mean_critics, sd = sd_critics))
+(prob_critics_80 <- 1 - pnorm(q = (80)^2, mean = mean_critics, sd = sd_critics))
 
 # Gr?fica sin normalizar de puntaje de los usuarios.
 
@@ -83,9 +83,9 @@ mean_users <- (mean(na.omit(game_data_modified$Users_Score))^2)
 
 # Consideramos tres casos donde un juego es bueno a partir de la calificación de usuarios, desde 6.0, 7.0 y 8.0.
 
-(prob_users <- 1 - pnorm(q = (6.0)^2, mean = mean_users, sd = sd_users))
-(prob_users <- 1 - pnorm(q = (7.0)^2, mean = mean_users, sd = sd_users))
-(prob_users <- 1 - pnorm(q = (8.0)^2, mean = mean_users, sd = sd_users))
+(prob_users_60 <- 1 - pnorm(q = (6.0)^2, mean = mean_users, sd = sd_users))
+(prob_users_70 <- 1 - pnorm(q = (7.0)^2, mean = mean_users, sd = sd_users))
+(prob_users_80 <- 1 - pnorm(q = (8.0)^2, mean = mean_users, sd = sd_users))
 
 # Análisis cualitativo de relación entre el número de usuarios y el puntaje por la compañía.
 
@@ -134,3 +134,4 @@ plot(year_mean_users$Year, year_mean_users$n,
 i3 <- order(year_mean_users$Year)
 lines(year_mean_users$Year[i3], fitted(spline_users_years)[i3], col='red', lwd=2)
 abline(lsfit(year_mean_users$Year, year_mean_users$n), lwd=2)
+
