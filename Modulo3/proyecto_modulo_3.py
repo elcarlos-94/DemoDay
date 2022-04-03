@@ -1,4 +1,5 @@
 import pandas as pd
+
 # import numpy as np
 
 # Import original file
@@ -6,14 +7,14 @@ df = pd.read_csv('C:/Users/Carlos Alvarez/Desktop/DemoDay/CSV/games-data-exp.csv
 df.set_index('name')
 
 # First look on NA in table
-print(df.isna().sum(axis=0))
+# print(df.isna().sum(axis=0))
 
 # Clean NA in the players column
 df_clean_na = df.copy()
 df_clean_na['players'] = df_clean_na['players'].fillna(0)
 
 # Second look on NA in table
-print(df_clean_na.isna().sum(axis=0))
+# print(df_clean_na.isna().sum(axis=0))
 
 # Extract year from "r-date".
 df_clean_na['year'] = pd.DatetimeIndex(df_clean_na['r-date']).year
@@ -27,9 +28,21 @@ df_genre_dropped = df_genre.dropna(axis=1, how='any')
 
 df_2 = pd.concat([df_clean_na, df_genre_dropped], axis=1)
 df_2_drop = df_2.drop(columns=['genre'])
-column_renamed = {
+df_2_renamed = df_2_drop.rename(columns={
     'r-date': 'release_date',
     0: 'genre'
-}
-df_2_renamed = df_2_drop.rename(columns=column_renamed)
-print(df_2_renamed.head(5))
+})
+# print(df_2_renamed.head(5))
+df_players = df_2_renamed['players']
+
+
+# print(df_players)
+
+
+if df_players == '2-Jan':
+    df_players = df_players.apply(lambda x: '2 Player')
+else:
+    pass
+
+# df_players_modified = df_players.apply(lambda x: '2 Player' if x == '2-Jan')
+print(df_players)
