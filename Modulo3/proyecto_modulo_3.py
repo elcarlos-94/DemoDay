@@ -33,16 +33,10 @@ df_2_renamed = df_2_drop.rename(columns={
     0: 'genre'
 })
 # print(df_2_renamed.head(5))
-df_players = df_2_renamed['players']
 
-
-# print(df_players)
-
-
-if df_players == '2-Jan':
-    df_players = df_players.apply(lambda x: '2 Player')
-else:
-    pass
-
-# df_players_modified = df_players.apply(lambda x: '2 Player' if x == '2-Jan')
-print(df_players)
+df_2_renamed['players'] = df_2_renamed['players'].replace(['2-Jan', '3-Jan', '4-Jan', '5-Jan', '8-Jan', '10-Jan',
+                                                           '12-Jan', '16-Jan', '24-Jan', 'Jan-64', 'Jan-32'],
+                                                          ['2 players', '3 players', '4 players', '5 players',
+                                                           '8 players', '10 players', '12 players', '16 players',
+                                                           '24 players', '64 players', '32 players'])
+print(df_2_renamed)
