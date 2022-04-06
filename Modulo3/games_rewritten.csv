@@ -1,0 +1,40 @@
+                                               name      platform    company  \
+0              The Legend of Zelda: Ocarina of Time    Nintendo64   Nintendo   
+1                          Tony Hawk's Pro Skater 2   PlayStation       Sony   
+2                               Grand Theft Auto IV  PlayStation3       Sony   
+3                                       SoulCalibur     Dreamcast       SEGA   
+4                               Grand Theft Auto IV       Xbox360  Microsoft   
+...                                             ...           ...        ...   
+17939                        Vroom in the Night Sky        Switch   Nintendo   
+17940           Leisure Suit Larry: Box Office Bust  PlayStation3       Sony   
+17941                                         Yaris       Xbox360  Microsoft   
+17942                     Ride to Hell: Retribution            PC    Desktop   
+17943  Family Party: 30 Great Games Obstacle Arcade          WiiU   Nintendo   
+
+      release_date  score user_score               developer  \
+0       11/23/1998     99        9.1                Nintendo   
+1        9/20/2000     98        7.4  NeversoftEntertainment   
+2        4/29/2008     98        7.6           RockstarNorth   
+3         9/8/1999     98        8.5                   Namco   
+4        4/29/2008     98        7.9           RockstarNorth   
+...            ...    ...        ...                     ...   
+17939     4/5/2017     17        3.1                 Poisoft   
+17940     5/5/2009     17        1.9                  Team17   
+17941   10/10/2007     17        4.3   BackboneEntertainment   
+17942    6/24/2013     16        1.3    Eutechnyx,DeepSilver   
+17943    12/4/2012     11          2             ArtCo.,Ltd.   
+
+                     players  critics  users  year             genre  
+0                   1 Player       22   5749  1998  Action Adventure  
+1                  2 players       19    647  2000            Sports  
+2                   1 Player       64   3806  2008  Action Adventure  
+3                  2 players       24    324  1999            Action  
+4                   1 Player       86   3364  2008  Action Adventure  
+...                      ...      ...    ...   ...               ...  
+17939  No Online Multiplayer       15    105  2017            Sports  
+17940  No Online Multiplayer       11     45  2009  Action Adventure  
+17941              2  Online        7    129  2007           Driving  
+17942                No info        9    581  2013           Driving  
+17943  No Online Multiplayer        8    151  2012     Miscellaneous  
+
+[17944 rows x 12 columns]

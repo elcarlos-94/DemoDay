@@ -56,3 +56,6 @@ df_2_renamed = df_2_drop.rename(columns={
 
 df_2_renamed['players'] = df_2_renamed['players'].replace(deleting_data(), adding_data())
 print(df_2_renamed)
+
+with open("games_rewritten.csv", "w") as my_input:
+    my_input.write(str(df_2_renamed))
