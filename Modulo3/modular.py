@@ -6,6 +6,11 @@ def reading_db():
     return db
 
 
+def writing_db():
+    db = r'C:/Users/Carlos Alvarez/Desktop/DemoDay/Modulo3/games_rewritten.csv'
+    return db
+
+
 def deleting_data():
     replacing = ['2-Jan', '3-Jan', '4-Jan', '5-Jan', '8-Jan', '10-Jan',
                  '12-Jan', '16-Jan', '24-Jan', 'Jan-64', 'Jan-32']
@@ -59,4 +64,4 @@ df_2_renamed['players'] = df_2_renamed['players'].replace(deleting_data(), addin
 df_2_renamed.index += 1
 print(df_2_renamed)
 
-df_2_renamed.to_csv(r'C:/Users/Carlos Alvarez/Desktop/DemoDay/Modulo3/games_rewritten.csv', index=True, header=True)
+df_2_renamed.to_csv(writing_db(), index=True, header=True)
